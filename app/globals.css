@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+@config "../tailwind.config.ts";
+
+/* ─────────────────────────────────────────────
+   CSS TOKENS — Sampled from minhpham.design
+   ───────────────────────────────────────────── */
+:root {
+  --bg:            #0d0d0d;
+  --surface:       #141414;
+  --cream:         #e3dec3;
+  --cream-dim:     #a8a390;
+  --accent:        #e8503a;
+  --accent-hover:  #f06050;
+  --muted:         #666666;
+  --border:        rgba(255, 255, 255, 0.08);
+  --transition:    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-grotesk), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+  overflow-x: hidden;
+}
+
+/* Native pointer cursor on all interactive elements */
+a, button, [role="button"], input, textarea, select, label {
+  cursor: pointer;
+}
+
+/* Custom scrollbar matching website color vibe */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+  border: 1.5px solid #0d0d0d;
+  transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #262626 #0d0d0d;
+}
+
+::selection { background: var(--accent); color: #0d0d0d; }
+
+@keyframes grain {
+  0%   { background-position:   0%   0%; }
+  10%  { background-position:  -5%  -10%; }
+  20%  { background-position: -15%   5%; }
+  30%  { background-position:   7%  -25%; }
+  40%  { background-position: -5%   25%; }
+  50%  { background-position: -15%  10%; }
+  60%  { background-position:  15%   0%; }
+  70%  { background-position:   0%  15%; }
+  80%  { background-position:   3%  35%; }
+  90%  { background-position: -10%  10%; }
+  100% { background-position:   0%   0%; }
+}
+
+.noise {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grain 8s steps(1) infinite;
+}
+
+
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY — Minh Pham giant stacked style
+   ───────────────────────────────────────────── */
+.headline {
+  font-family: var(--font-syne), sans-serif;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* ─────────────────────────────────────────────
+   KINETIC TYPOGRAPHY
+   ───────────────────────────────────────────── */
+/* Terracotta accent word — soft glow appears on heading hover */
+.kinetic-accent {
+  text-shadow: none;
+  transition: text-shadow 0.28s ease, letter-spacing 0.28s ease;
+}
+/* Parent heading hover triggers the glow on accent spans */
+.kinetic-heading:hover .kinetic-accent,
+[class*="headline"]:hover .kinetic-accent {
+  text-shadow: 0 0 28px rgba(232, 80, 58, 0.55), 0 0 8px rgba(232, 80, 58, 0.35);
+  letter-spacing: 0.01em;
+}
+
+/* Refined headline sizing for proper balance and image visibility */
+.headline-xl {
+  font-size: clamp(2rem, 5.5vw, 4.8rem);
+}
+
+/* ─────────────────────────────────────────────
+   SECTION LABEL
+   ───────────────────────────────────────────── */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--cream-dim);
+  font-weight: 600;
+}
+.label::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────
+   NAV LINK HOVER (slide-up duplicate text effect)
+   ───────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--cream-dim);
+  transition: color 0.3s;
+  padding-bottom: 2px;
+}
+.nav-link:hover { color: var(--cream); }
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.35s var(--transition);
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ─────────────────────────────────────────────
+   BUTTONS
+   ───────────────────────────────────────────── */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  font-family: monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: transparent;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  background: rgba(232, 80, 58, 0.08);
+  color: #fff;
+}
+
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  font-family: monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 700;
+  transition: background 0.3s, transform 0.3s;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+.btn-solid:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* ─────────────────────────────────────────────
+   CARDS (flat, no heavy glow)
+   ───────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: border-color 0.4s var(--transition),
+    transform 0.4s var(--transition);
+}
+.card:hover {
+  border-color: rgba(232, 80, 58, 0.25);
+  /* transform handled by TiltCard — do not override here */
+}
+
+.tag {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+}
+
+.text-gradient {
+  color: var(--accent);
+}
+
+/* ─────────────────────────────────────────────
+   MARQUEE
+   ───────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+
+/* ─────────────────────────────────────────────
+   PORTRAIT BLEND (Right-aligned, smooth 100% #0d0d0d background blend)
+   ───────────────────────────────────────────── */
+.portrait-wrap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 60%;
+  max-width: 850px;
+  z-index: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .portrait-wrap {
+    width: 100%;
+    opacity: 0.4;
+  }
+}
+
+.portrait-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, #0d0d0d 0%, rgba(13,13,13,0.85) 25%, rgba(13,13,13,0.2) 65%, rgba(13,13,13,0.5) 100%),
+    linear-gradient(to bottom, rgba(13,13,13,0.6) 0%, transparent 20%, transparent 60%, #0d0d0d 100%);
+  z-index: 1;
+}
+
+.portrait-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  opacity: 0.75;
+  filter: brightness(0.9) contrast(1.05);
+}
+
+/* ─────────────────────────────────────────────
+   FORMS
+   ───────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.85rem 1rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.3s;
+  resize: none;
+}
+.form-input:focus { border-color: var(--accent); }
+.form-input::placeholder { color: var(--muted); }
