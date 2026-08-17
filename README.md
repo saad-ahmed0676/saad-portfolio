@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Portfolio — Saad Ahmed
+
+My personal portfolio website built with Next.js 15, TypeScript, and Tailwind CSS. Features a 3D animated blob using React Three Fiber, smooth section transitions powered by Framer Motion, and a scrolling tech marquee. All content is driven from a single `lib/data.ts` file making updates straightforward.
+
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| 3D | React Three Fiber + Three.js |
+| Animation | Framer Motion |
+
+## Sections
+
+- **Hero** — name, role, tagline, and animated 3D blob
+- **Tech Marquee** — scrolling banner of technologies
+- **About** — bio and location
+- **Projects** — card grid of featured projects with tags and links
+- **Experience** — timeline of roles and education
+- **Testimonials** — client/peer quotes
+- **Footer** — social links and contact
+
+## Project Structure
+
+```
+saad-portfolio/
+├── app/
+│   ├── page.tsx          # Root page — composes all sections
+│   ├── layout.tsx        # App shell, metadata, font setup
+│   └── globals.css       # Global styles and CSS variables
+├── components/
+│   ├── Hero.tsx          # Hero section with 3D blob
+│   ├── Blob3D.tsx        # React Three Fiber animated blob
+│   ├── TechMarquee.tsx   # Scrolling tech banner
+│   ├── About.tsx         # About section
+│   ├── Projects.tsx      # Project cards grid
+│   ├── Experience.tsx    # Experience and education timeline
+│   ├── Testimonials.tsx  # Testimonial cards
+│   ├── Navbar.tsx        # Navigation bar
+│   └── Footer.tsx        # Footer with socials
+├── lib/
+│   └── data.ts           # All content — edit this to update the site
+└── public/
+    └── projects/         # Project screenshots (add your own here)
+```
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Start dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Updating Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All site content lives in `lib/data.ts` — no need to touch components for routine updates:
 
-## Learn More
+```ts
+// Update your profile info
+export const profile = { name, role, tagline, bio, ... }
 
-To learn more about Next.js, take a look at the following resources:
+// Add or edit projects
+export const projects = [{ title, description, tags, link, image }]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+// Update experience/education
+export const experience = [{ period, role, org }]
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To add project screenshots, drop images into `public/projects/` and reference them as `/projects/your-image.jpg` in `data.ts`.
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way is [Vercel](https://vercel.com) — connect your GitHub repo and it deploys automatically on every push.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Or build locally
+npm run build
+npm run start
+```
+
+## Author
+
+**Saad Ahmed** — [saadahmed.0676@gmail.com](mailto:saadahmed.0676@gmail.com)
